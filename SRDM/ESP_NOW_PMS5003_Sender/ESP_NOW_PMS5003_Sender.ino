@@ -7,15 +7,15 @@
 #include <espnow.h>
 #include<DHT.h>
 #include "PMS.h"
-#include "SoftwareSerial.h"
-
+// #include "SoftwareSerial.h"
+#include "Arduino.h"
 
 #define DHTPIN 2   //D4
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
 
-SoftwareSerial Serial1(3,1); // RX, TX
+//SoftwareSerial Serial1(3,1); // RX, TX
  
 PMS pms(Serial1);
 PMS::DATA data;
@@ -87,9 +87,9 @@ void setup() {
 void loop() {
     float humidity = dht.readHumidity();
   float temperature = dht.readTemperature();
-  float PM1=String(data.PM_AE_UG_1_0);
-  float PM25=String(data.PM_AE_UG_2_5);
-  float PM10=String(data.PM_AE_UG_10_0);
+  float PM1=data.PM_AE_UG_1_0;
+  float PM25=data.PM_AE_UG_2_5;
+  float PM10=data.PM_AE_UG_10_0;
   
   if ((millis() - lastTime) > timerDelay) {
     Serial.print("Temperature = ");
